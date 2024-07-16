@@ -4,7 +4,6 @@ namespace Application.IRepository.IFormRepository
 {
     public interface IFormRead : IReadRepository<Form>
     {
-        IQueryable<Form> GetUsersForms(int userId, bool tracking = true);
-
+        public IQueryable<Form> GetUsersForms(int userId, string search, bool tracking = true);
     }
 }

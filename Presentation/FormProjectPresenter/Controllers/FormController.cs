@@ -1,6 +1,7 @@
 ﻿using Application.Features.Queries.FormQueries.DetailForm;
 using Application.Features.Commands.FormCommands.AddForm;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Entities;
@@ -8,6 +9,7 @@ using MediatR;
 
 namespace FormProjectPresenter.Controllers
 {
+    [Authorize]
     public class FormController : Controller
     {
         readonly UserManager<AppUser> _userManager;

@@ -12,7 +12,9 @@ namespace Application.Features.Commands.AccountCommands.RegisterUser
         
         [Required]
         public string Password { get; set; }
-        
+        [Required]
+        public string RePassword { get; set; }
+
         [Required]
         public string UserName { get; set; }
     }

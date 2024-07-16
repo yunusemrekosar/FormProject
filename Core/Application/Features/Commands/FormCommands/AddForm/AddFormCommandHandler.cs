@@ -19,6 +19,12 @@ namespace Application.Features.Commands.FormCommands.AddForm
 
             try
             {
+                if (request.FormFields.Count == 0)
+                {
+                    response.Message = "Alan eklemeden form oluşturamazsınız!";
+                    return response;
+                }
+
                 var fields = new List<FormField>();
 
                 foreach (var item in request.FormFields)

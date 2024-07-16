@@ -13,6 +13,12 @@
 <div class="text-center">
     <h1 class="display-4">Formlar</h1>
 </div>
+<div class="col-4 ">
+    <form action="/home/index"  class="input-group mb-3">
+        <input type="text" class="form-control" name="search" placeholder="İsme Göre Ara">
+        <button class="btn btn-outline-secondary" type="submit" id="searchBtn">Ara</button>
+    </form>
+</div>
 
 <style>
     .formTable td:first-child,
@@ -52,9 +58,7 @@
     </div>
 </div>
 
-
-<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddForm">Form Ekle</button>
-
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddForm">Yeni Form Oluştur</button>
 
 <div class="modal fade" id="AddForm" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -68,23 +72,35 @@
                         <div class="col-md-10">
                             <div class="card px-5 py-5">
                                 <div class="form-data">
-
                                     <div class="mb-5">
                                         <h3 id="title" class="text-center">Form Oluştur</h3>
                                     </div>
                                     <div id="AddForm">
-                                        <form action="/form/addform" method="post">
+                                        <form action="/form/addform" method="post" data-parsley-validate>
                                             <div class="mt-2">
                                                 <div class="input-group flex-nowrap">
-                                                    <input type="text" id="nameInput" name="Name" class="form-control" placeholder="Form Adı">
+                                                    <input required
+                                                           data-parsley-minlength="2"
+                                                           data-parsley-errors-container="#nameError"
+                                                           data-parsley-required-message="Bu alan boş geçilemez!"
+                                                           data-parsley-minlength-message="Bu alan 2 karakterden daha kısa olamaz!"
+                                                           type="text" id="nameInput" name="Name" class="form-control" placeholder="Form Adı">
                                                 </div>
+                                            </div>
+                                            <div class="mt-2" style="color:red;" id="nameError">
                                             </div>
 
                                             <div class="mt-2">
                                                 <div class="form-floating">
-                                                    <textarea class="form-control" id="FormDesc" name="Description" placeholder="Form Açıklaması" style="height: 100px"></textarea>
+                                                    <textarea required
+                                                              data-parsley-errors-container="#descriptionError"
+                                                              data-parsley-required-message="Bu alan boş geçilemez!"
+                                                              class="form-control" id="FormDesc" name="Description" placeholder="Form Açıklaması" style="height: 100px"></textarea>
                                                     <label for="FormDesc">Açıklama</label>
                                                 </div>
+                                            </div>
+
+                                            <div class="mt-2" style="color:red;" id="descriptionError">
                                             </div>
 
                                             <hr />
@@ -111,7 +127,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

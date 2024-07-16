@@ -20,7 +20,7 @@ namespace Application.Features.Queries.FormQueries.DetailForm
 
             try
             {
-                var form = await _formRead.GetById(request.Id)
+                var form = await _formRead.GetById(request.Id,false)
                     .Include(x=>x.FormFields)
                     .FirstOrDefaultAsync();
 

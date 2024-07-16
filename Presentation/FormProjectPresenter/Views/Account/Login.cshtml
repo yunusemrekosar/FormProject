@@ -17,13 +17,20 @@
                         <h3 id="title" class="text-center">Oturum Aç</h3>
                     </div>
                     <div id="LoginForm">
-                        <form action="/account/login" method="post">
+                        <form action="/account/login" method="post" data-parsley-validate>
 
                             <div class="mt-2">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text">@@</span>
-                                    <input type="text" name="UsernameOrEmail" class="form-control" placeholder="Kullanıcı Adı ya da Email">
+                                    <input required
+                                           data-parsley-minlength="3"
+                                           data-parsley-errors-container="#UsernameOrEmailError"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
+                                           data-parsley-minlength-message="Bu alan 3 karakterden daha kısa olamaz!"
+                                           type="text" name="UsernameOrEmail" class="form-control" placeholder="Kullanıcı Adı ya da Email">
                                 </div>
+                            </div>
+                            <div class="mt-2" style="color:red;" id="UsernameOrEmailError">
                             </div>
 
                             <div class="mt-2">
@@ -34,9 +41,16 @@
                                             <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0" />
                                         </svg>
                                     </span>
-                                    <input type="password" class="form-control" placeholder="Şifre" name="Password">
+                                    <input required
+                                           data-parsley-errors-container="#password"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
+                                           type="password" class="form-control" placeholder="Şifre" name="Password">
                                 </div>
                             </div>
+                            <div class="mt-2" style="color:red;" id="password">
+                            </div>
+
+
                             <div class="d-flex justify-content-between mt-3">
                                 <div>
                                     <a id="ChangeBtn" onclick="ChangeScreen()" class="btn btn-dark">Hesap Oluştur</a>
@@ -51,43 +65,59 @@
                     </div>
 
                     <div class="d-none" id="RegisterForm">
-                        <form asp-action="register" asp-controller="account" method="post">
+                        <form asp-action="register" asp-controller="account" method="post" data-parsley-validate>
                             <div class="mt-2">
                                 <div class="input-group flex-nowrap">
                                     <input required
                                            data-parsley-type="email"
-                                           data-parsley-required-message="Lütfen geçerli bir email giriniz."
+                                           data-parsley-errors-container="#emailError"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
                                            data-parsley-type-message="Lütfen geçerli bir email giriniz!"
                                            type="email" name="Email" class="form-control" placeholder="Email">
                                 </div>
+                            </div>
+                            <div class="mt-2" style="color:red;" id="emailError">
                             </div>
 
                             <div class="mt-2">
                                 <div class="input-group flex-nowrap">
                                     <input required
                                            data-parsley-minlength="3"
+                                           data-parsley-errors-container="#userNameError"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
                                            data-parsley-minlength-message="Kullanıcı Adı 3 karakterden daha kısa olamaz!"
                                            type="text" name="UserName" class="form-control" placeholder="Kullanıcı Adı">
                                 </div>
+                            </div>
+                            <div class="mt-2" style="color:red;" id="userNameError">
                             </div>
 
                             <div class="mt-2">
                                 <div class="input-group flex-nowrap">
                                     <input required
                                            data-parsley-minlength="4"
-                                           id="fpassword"
+                                           data-parsley-errors-container="#passError"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
                                            data-parsley-minlength-message="Şifre 4 karakterden daha kısa olamaz!"
-                                        type="password" class="form-control" placeholder="Şifre" name="Password">
+                                           id="fpassword" type="password" class="form-control" placeholder="Şifre" name="Password">
                                 </div>
+                            </div>
+                            <div class="mt-2" style="color:red;" id="passError">
                             </div>
 
                             <div class="mt-2">
                                 <div class="input-group flex-nowrap">
                                     <input required
                                            data-parsley-equalto="#fpassword"
-                                           type="password" name="Repassword" class="form-control" placeholder="Şifre Tekrar">
+                                           data-parsley-errors-container="#repassError"
+                                           data-parsley-required-message="Bu alan boş geçilemez!"
+                                           data-parsley-equalto-message="Şifre ve şifre onayı aynı olmalıdır!"
+                                           type="password" name="RePassword" class="form-control" placeholder="Şifre Tekrar">
                                 </div>
                             </div>
+                            <div class="mt-2" style="color:red;" id="repassError">
+                            </div>
+
                             <div class="d-flex justify-content-between mt-3">
                                 <div>
                                     <a id="ChangeBtn" onclick="ChangeScreen()" class="btn btn-dark">Zaten Hesabım Var</a>
@@ -97,7 +127,6 @@
                                     <button type="submit" class="btn btn-primary">Kayıt Ol</button>
                                 </div>
                             </div>
-
 
                         </form>
                     </div>

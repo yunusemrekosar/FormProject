@@ -18,7 +18,7 @@ namespace Application.Features.Queries.FormQueries.ListForms
             ListFormsQueryResponse response = new();
             try
             {
-                var forms = await _formRead.GetUsersForms(request.LoggedUserId)
+                var forms = await _formRead.GetUsersForms(request.LoggedUserId,request.Search,false)
                     .ToListAsync();
 
                 if (forms != null)

@@ -22,6 +22,11 @@ namespace Application.Features.Commands.AccountCommands.RegisterUser
             {
                 //todo: email ve username kontolü yap
 
+                if (request.Password != request.RePassword)
+                {
+                    response.Message = "Şifreler Aynı değil";
+                    return response;
+                }
                 AppUser user = new();
                 user.Email = request.Email;
                 user.EmailConfirmed = false;

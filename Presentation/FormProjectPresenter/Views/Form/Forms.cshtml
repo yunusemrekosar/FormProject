@@ -19,27 +19,45 @@
                     <div class="mb-5">
                         <h3 id="title" class="text-center">@Model.Form.Name</h3>
                     </div>
-                    <form id="AddForm">
+                    <form action="#" id="AddForm" data-parsley-validate>
                         <div>
                             @foreach (var item in Model.Form.FormFields)
                             {
+                                var errorContainer = $"data-parsley-errors-container=#{item.Name + item.Id.ToString() + "Error"}";
                                 @if (true)
                                 {
-                                    required = item.Required ? "required" : "";
-                                    type = item.DataType == 1 ? "number" : "text";
+                                    required = item.Required ? $"required data-parsley-required-message=Bu&nbspalan&nbspboş&nbspgeçilemez!" : "";
                                 }
                                 <div class="mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <input type="@type" name="@item.Name" class="form-control" placeholder="@item.Name" @required>
+                                        <input type="@type" name="@item.Name" class="form-control" placeholder="@item.Name" @required @errorContainer>
                                     </div>
+                                </div>
+                                <div class="mt-2" style="color:red;" id="@(item.Name +item.Id.ToString()+ "Error")">
                                 </div>
 
                             }
-                            <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Formu Gönder</button>
+                            <div class="col-12">
+                                <div class="float-end">
+                                    <button type="submit" class="btn btn-primary">Formu Gönder</button>
+                                </div>
                             </div>
                         </div>
                     </form>
+                    <br />
+                    <br />
+                    <div class="col-12 mt-2" style="border-style: solid;
+                                  border-width: 1px;
+                                  border-radius:10px;
+                                   border-color: #fff;">
+                        <p class="col-10" style=" max-width: fit-content;
+                                                  margin-left: auto;
+                                                  margin-right: auto;">
+                            <br />
+                            @Model.Form.Description
+                            <br />
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
