@@ -19,7 +19,6 @@ namespace Application.Features.Queries.FormQueries.ListForms
             try
             {
                 var forms = await _formRead.GetUsersForms(request.LoggedUserId)
-                    .Include(x=>x.FormFields)
                     .ToListAsync();
 
                 if (forms != null)

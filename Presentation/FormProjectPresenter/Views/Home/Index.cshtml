@@ -1,6 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Application.Features.Queries.FormQueries.ListForms
+@{
+    ViewData["Title"] = "Home";
 }
+
+@model ListFormsQueryResponse;
 
 
 @section jsSection {
@@ -8,14 +11,52 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Formlar</h1>
 </div>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalXl">Extra large modal</button>
+<style>
+    .formTable td:first-child,
+    .formTable th:first-child {
+        width: 30%;
+    }
+
+    .formTable td:nth-child(2),
+    .formTable th:nth-child(2) {
+        width: 60%;
+    }
+</style>
+
+<div>
+    <div class="bd-example formTable">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Açıklama</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Forms)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <a href="/forms/@item.Id" class="btn btn-dark float-end">Detaya Git</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
-<div class="modal fade" id="exampleModalXl" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;" aria-hidden="true">
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#AddForm">Form Ekle</button>
+
+
+<div class="modal fade" id="AddForm" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,8 +73,7 @@
                                         <h3 id="title" class="text-center">Form Oluştur</h3>
                                     </div>
                                     <div id="AddForm">
-                                        <form action="/form/AddForm" method="post">
-
+                                        <form action="/form/addform" method="post">
                                             <div class="mt-2">
                                                 <div class="input-group flex-nowrap">
                                                     <input type="text" id="nameInput" name="Name" class="form-control" placeholder="Form Adı">
@@ -42,7 +82,7 @@
 
                                             <div class="mt-2">
                                                 <div class="form-floating">
-                                                    <textarea class="form-control" id="FormDesc" placeholder="Form Açıklaması" style="height: 100px"></textarea>
+                                                    <textarea class="form-control" id="FormDesc" name="Description" placeholder="Form Açıklaması" style="height: 100px"></textarea>
                                                     <label for="FormDesc">Açıklama</label>
                                                 </div>
                                             </div>
@@ -51,9 +91,7 @@
                                             <hr />
 
                                             <div id="fields">
-
                                             </div>
-
 
                                             <div class="float-end">
                                                 <div>
@@ -66,7 +104,6 @@
                                                     <a id="ChangeBtn" onclick="AddFields()" class="btn btn-dark">Alan Ekle</a>
                                                 </div>
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>

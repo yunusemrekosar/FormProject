@@ -1,25 +1,38 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.Serialization;
+using Application.Dtos;
+using Application.Features.Queries.FormQueries.ListForms;
+using MediatR;
+using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace FormProjectPresenter.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        readonly UserManager<AppUser> _userManager;
+        readonly IMediator _MediatR;
+
+        public HomeController(IMediator mediatR, UserManager<AppUser> userManager)
         {
-            return View();
+            _MediatR = mediatR;
+            _userManager = userManager;
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Index(ListFormsQueryRequest request)
         {
-            return View();
-        }
+            request.LoggedUserId = int.Parse(_userManager.GetUserId(User));
 
-        public IActionResult test(bool sasa)
-        {
-            return Content(sasa.ToString());
+            var response = await _MediatR.Send(request);
+
+            if (!response.IsSuccess)
+            {
+                TempData["CameFromPostState"] = response.IsSuccess;
+                TempData["CameFromPostMessage"] = response.Message;
+            }
+
+            return View(response);
         }
     }
 }

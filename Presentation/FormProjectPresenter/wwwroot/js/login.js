@@ -1,12 +1,4 @@
-﻿//$(document).ready(function () {
-//    $("#ChangeBtn").on('click', function () {
-//        $("#RegisterForm").toggleClass("d-none");
-//        $("#LoginForm").toggleClass("d-none");
-//    });
-//});
-
-
-function ChangeScreen() {
+﻿function ChangeScreen() {
     $("#RegisterForm").toggleClass("d-none");
     $("#LoginForm").toggleClass("d-none");
 

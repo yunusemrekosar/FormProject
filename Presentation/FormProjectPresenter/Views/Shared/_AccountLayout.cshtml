@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FormProjectPresenter</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>@ViewData["Title"] | FormProject</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/toastr/toastr.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FormProjectPresenter.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/parsley.css" asp-append-version="true" />
+
     @RenderSection("cssSection", required: false)
 
 </head>
@@ -15,28 +17,35 @@
 
     <div class="container">
         <main role="main" class="pb-3">
-            @if (TempData.ContainsKey("ComeFromPostState"))
+            @if (TempData.ContainsKey("CameFromPostState"))
             {
-                string message = (string)TempData["ComeFromPostMessage"];
-                bool success = (bool)TempData["ComeFromPostState"];
+                string message = (string)TempData["CameFromPostMessage"];
+                bool success = (bool)TempData["CameFromPostState"];
                 <script>
                     var optionsToastr = {
                         message: '@message',
                         success: @success.ToString().ToLower()
-                                                                                                                                                                };
+                    };
                 </script>
-                TempData.Remove("ComeFromPostState");
-                TempData.Remove("ComeFromPostMessage");
+                TempData.Remove("CameFromPostState");
+                TempData.Remove("CameFromPostMessage");
             }
             @RenderBody()
         </main>
     </div>
 
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - FormProject - Yunus Emre Koşar
+        </div>
+    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/toastr/toastr.js" asp-append-version="true"></script>
     <script src="~/toastr/toastrNotifications.js" asp-append-version="true"></script>
+    <script src="~/js/parsleyjs.js" asp-append-version="true"></script>
 
     @RenderSection("jsSection", required: false)
    

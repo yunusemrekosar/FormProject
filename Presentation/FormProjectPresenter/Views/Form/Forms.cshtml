@@ -1,0 +1,44 @@
+﻿@using Application.Features.Queries.FormQueries.DetailForm
+@model DetailFormQueryResponse;
+
+@ViewData["Title"] = "Forms";
+
+@{
+    string required = null;
+    string type = null;
+}
+
+<div class="container mt-5" style="margin-left: auto; margin-right: auto;">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 mt-5">
+            <div class="card px-5 py-5">
+                <div class="form-data">
+
+                    <div class="mb-5">
+                        <h3 id="title" class="text-center">@Model.Form.Name</h3>
+                    </div>
+                    <form id="AddForm">
+                        <div>
+                            @foreach (var item in Model.Form.FormFields)
+                            {
+                                @if (true){
+                                    required = item.Required ? "required" : "";
+                                    type = item.DataType == 1 ? "number" : "text";
+                                }
+                                <div class="mt-2">
+                                    <div class="input-group flex-nowrap">
+                                        <input type="@type" name="@item.Name" class="form-control" placeholder="@item.Name" @required>
+                                    </div>
+                                </div>
+
+                            }
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-primary">Formu Gönder</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

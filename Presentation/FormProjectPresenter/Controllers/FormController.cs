@@ -1,10 +1,10 @@
-﻿using Application.Features.Commands.FormCommands.AddForm;
-using Azure.Core;
-using Domain.Entities;
-using MediatR;
+﻿using Application.Features.Queries.FormQueries.DetailForm;
+using Application.Features.Commands.FormCommands.AddForm;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Domain.Entities;
+using MediatR;
 
 namespace FormProjectPresenter.Controllers
 {
@@ -19,10 +19,34 @@ namespace FormProjectPresenter.Controllers
             _MediatR = mediatR;
         }
 
-        public IActionResult Index()
+        [Route("forms/{formId}")]
+        public async Task<IActionResult> Forms(int formId)
         {
-            return View();
+            var request = new DetailFormQueryRequest { Id = formId };
+
+            request.LoggedUserId = int.Parse(_userManager.GetUserId(User));
+
+            if (!ModelState.IsValid)
+            {
+                TempData["CameFromPostState"] = false;
+                TempData["CameFromPostMessage"] = ModelState.Values
+                    .Where(x => x.ValidationState == ModelValidationState.Invalid)
+                    .First().Errors.First().ErrorMessage;
+                return RedirectToAction("index", "home");
+            }
+
+            var response = await _MediatR.Send(request);
+
+            if (response.IsSuccess)
+                return View(response);
+
+            TempData["CameFromPostState"] = response.IsSuccess;
+            TempData["CameFromPostMessage"] = response.Message;
+
+            return RedirectToAction("index", "home");
         }
+
+
         [HttpPost]
         public async Task<IActionResult> AddForm(AddFormCommandRequest request)
         {
@@ -34,14 +58,15 @@ namespace FormProjectPresenter.Controllers
                 TempData["CameFromPostMessage"] = ModelState.Values
                     .Where(x => x.ValidationState == ModelValidationState.Invalid)
                     .First().Errors.First().ErrorMessage;
-                return View();
+                return RedirectToAction("index", "home");
             }
 
             var response = await _MediatR.Send(request);
 
             TempData["CameFromPostState"] = response.IsSuccess;
             TempData["CameFromPostMessage"] = response.Message;
-            return View();
+
+            return RedirectToAction("index", "home");
         }
     }
 }
