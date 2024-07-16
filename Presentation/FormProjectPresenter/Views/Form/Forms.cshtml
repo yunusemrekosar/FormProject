@@ -1,7 +1,9 @@
 ﻿@using Application.Features.Queries.FormQueries.DetailForm
 @model DetailFormQueryResponse;
 
-@ViewData["Title"] = "Forms";
+@{
+    ViewData["Title"] = "Forms";
+}
 
 @{
     string required = null;
@@ -21,7 +23,8 @@
                         <div>
                             @foreach (var item in Model.Form.FormFields)
                             {
-                                @if (true){
+                                @if (true)
+                                {
                                     required = item.Required ? "required" : "";
                                     type = item.DataType == 1 ? "number" : "text";
                                 }
