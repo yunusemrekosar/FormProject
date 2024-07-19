@@ -27,6 +27,7 @@
                                 @if (true)
                                 {
                                     required = item.Required ? $"required data-parsley-required-message=Bu&nbspalan&nbspboş&nbspgeçilemez!" : "";
+                                    type = item.DataType == 1 ? "number" : "text";
                                 }
                                 <div class="mt-2">
                                     <div class="input-group flex-nowrap">

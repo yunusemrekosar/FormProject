@@ -1,8 +1,8 @@
-﻿using Application.Features.Commands.AccountCommands.LoginUser;
+﻿using Application.Features.Commands.AccountCommands.RegisterUser;
+using Application.Features.Commands.AccountCommands.LoginUser;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using Application.Features.Commands.AccountCommands.RegisterUser;
 
 namespace FormProjectPresenter.Controllers
 {
